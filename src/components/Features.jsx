@@ -27,11 +27,11 @@ const Features = () => {
         }
     ]
     return (
-        <section className='px-2 md:px-8 h-auto my-20 md:my-3 flex justify-center items-center'>
+        <section className='px-2 md:px-8 h-auto my-20 flex justify-center items-center'>
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-5 md:gap-10">
                 {
                     gridItems.map((item, i) => (
-                        <div className='flex flex-col md:flex-row gap-4'>
+                        <div key={i} className='flex flex-col md:flex-row gap-4'>
                             <p className='text-[#f76d71]'>{item.icons}</p>
                             <div>
                                 <h1 className='text-xl font-semibold mb-1'>{item.title}</h1>
