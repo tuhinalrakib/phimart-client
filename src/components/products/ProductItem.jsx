@@ -3,7 +3,7 @@ import DafaultImage from "../../assets/images/default_product.jpg"
 
 const ProductItem = ({product}) => {
     return (
-        <div className="card bg-base-100 w-96 shadow-sm">
+        <div className="card bg-base-100 shadow-sm">
             <figure className="px-10 pt-10">
                 <img
                     src={ product.images[0] || DafaultImage }
