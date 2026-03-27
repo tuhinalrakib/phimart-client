@@ -7,11 +7,11 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import ErrorAlert from '../ErrorAlert';
 import useAxios from '../../hooks/useAxios';
+import useLoadingError from '../../hooks/useLoadingError';
 
 const Products = () => {
     const [products, setProducts] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [error,setError] = useState("")
+    const {loading, error, setLoading, setError} = useLoadingError()
     const axiosInstance = useAxios()
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const Products = () => {
             }
         }
         fetch()
-    }, [axiosInstance])
+    }, [axiosInstance, setLoading, setError])
 
     return (
         <section className='max-w-7xl mx-auto py-16 bg-gray-50'>

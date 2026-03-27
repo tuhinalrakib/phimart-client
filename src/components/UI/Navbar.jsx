@@ -8,23 +8,37 @@ const Navbar = () => {
                 <NavLink
                     to='/'
                     className={({ isActive }) =>
-                        `${isActive ? "bg-blue-500" : "bg-blue-400"} p-1 cursor-pointer rounded-md hover:bg-blue-400 duration-800`
+                        `btn ${isActive ? "btn-secondary" : "btn-info"} cursor-pointer rounded-md hover:bg-blue-500 duration-800`
                     }
                 >
                     Home
                 </NavLink>
             </li>
-            <li className='bg-blue-200 p-1 cursor-pointer rounded-md hover:bg-blue-400 duration-800'>
-                Service
+            <li>
+                <NavLink
+                    to='/service'
+                    className={({ isActive }) =>
+                        `btn ${isActive ? "btn-secondary" : "btn-info"} cursor-pointer rounded-md hover:bg-blue-500 duration-800`
+                    }
+                >
+                    Service
+                </NavLink>
             </li>
-            <li className='bg-blue-200 p-1 cursor-pointer rounded-md hover:bg-blue-400 duration-800'>
-                About us
+            <li>
+                <NavLink
+                    to='/shop'
+                    className={({ isActive }) =>
+                        `btn ${isActive ? "btn-secondary" : "btn-info"} cursor-pointer rounded-md hover:bg-blue-500 duration-800`
+                    }
+                >
+                    Shop
+                </NavLink>
             </li>
         </>
     )
 
     return (
-        <div className="navbar bg-base-100 shadow-sm w-full fixed top-0 lft-0 z-50 ">
+        <div className="navbar bg-gray-200 shadow-md w-full fixed top-0 lft-0 z-50">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -32,7 +46,7 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow space-y-2">
+                        className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-52 p-2 shadow space-y-2">
                         {Links}
                     </ul>
                 </div>
@@ -64,7 +78,7 @@ const Navbar = () => {
                     <div
                         tabIndex={0}
                         className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
-                        <div className="card-body bg-base-100">
+                        <div className="card-body bg-base-200">
                             <span className="text-lg font-bold">8 Items</span>
                             <span className="text-info">Subtotal: $999</span>
                             <div className="card-actions">

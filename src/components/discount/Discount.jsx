@@ -3,51 +3,58 @@ import BannerImage from '../../assets/images/banner-image3.png'
 import BGImage from "../../assets/images/banner-image-bg-1.jpg"
 
 const Discount = () => {
-    const [timeLeft, setTimeLeft] = useState({
-        days : 27,
-        hours : 0,
-        min : 0,
-        sec : 0
-    })
+    const targetDate = new Date().getTime() + 1000 * 24 * 60 * 60 * 25
+    const getTimeRemaining = () => {
+        const now = new Date().getTime()
+        const difference = targetDate - now
+        return {
+            days: Math.floor(difference / (24 * 1000 * 60 * 60)),
+            hours: Math.floor((difference / (1000 * 60 * 60))% 24),
+            min: Math.floor((difference / (1000 * 60)) % 60),
+            sec: Math.floor((difference / 1000)%60)
+        }
+    }
+   
+    const [timeLeft, setTimeLeft] = useState(getTimeRemaining())
 
-    useEffect(()=>{
-        const timer = setInterval(()=>{
-            setTimeLeft((prev)=>{
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => {
                 let { days, hours, min, sec } = prev;
 
-                if(sec > 0){
+                if (sec > 0) {
                     sec--
-                }else{
-                    if(min > 0){
+                } else {
+                    if (min > 0) {
                         min--
                         sec = 59
-                    }else{
-                        if(hours > 0){
+                    } else {
+                        if (hours > 0) {
                             hours--
-                            min=59
-                            sec=59
-                        }else{
-                            if(days > 0){
+                            min = 59
+                            sec = 59
+                        } else {
+                            if (days > 0) {
                                 days--
-                                hours=23
-                                min=59
-                                sec=59
+                                hours = 23
+                                min = 59
+                                sec = 59
                             }
                         }
                     }
                 }
-                return {days, hours, min, sec }
+                return { days, hours, min, sec }
             })
-        },1000)
-        return ()=> clearInterval(timer)
-    },[])
+        }, 1000)
+        return () => clearInterval(timer)
+    }, [])
 
     return (
-        <section 
-        className='py-20'
-        style={{
-            backgroundImage : `url(${BGImage})`
-        }}>
+        <section
+            className='py-20'
+            style={{
+                backgroundImage: `url(${BGImage})`
+            }}>
             <div className='max-w-6xl mx-auto flex justify-around items-center gap-20 '>
                 <div className='w-1/2'>
                     <img src={BannerImage} alt="banner Image" className='w-full h-full' />

@@ -3,6 +3,7 @@ import HeroCarousel from '../components/carousel/HeroCarousel';
 import Features from '../components/Features';
 import Products from '../components/products/Products';
 import Discount from '../components/discount/Discount';
+import Categories from '../components/categories/Categories';
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <Features />
             <Products />
             <Discount/>
+            <Categories />
         </div>
     );
 };
