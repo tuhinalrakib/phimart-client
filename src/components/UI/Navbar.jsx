@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router';
-import useAuth from '../../hooks/useAuth';
+import logo from "../../assets/images/logo.png"
+import useAuthContext from '../../hooks/useAuthContext';
 
 const Navbar = () => {
-    const { user } = useAuth()
-    console.log(user)
+    const { user, loading, logoutUser } = useAuthContext()
+
     const Links = (
         <>
             <li>
@@ -58,7 +59,8 @@ const Navbar = () => {
                         <img
                             width={30}
                             height={30}
-                            src="./logo.png" alt="logo"
+                            src={logo} alt="logo"
+                            loading='lazy'
                             className='rounded'
                         />
                         phimart
@@ -91,6 +93,10 @@ const Navbar = () => {
                     </div>
                 </div>
                 {
+                    loading 
+                    ?
+                    " "
+                    :
                     user
                         ?
                         <div className="dropdown dropdown-end">
@@ -110,14 +116,16 @@ const Navbar = () => {
                                         <span className="badge">New</span>
                                     </a>
                                 </li>
-                                <li><a>Settings</a></li>
-                                <li><a>Logout</a></li>
+                                <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+                                <li>
+                                    <a onClick={logoutUser}>Logout</a>
+                                </li>
                             </ul>
                         </div>
                         :
                         <>
                             <NavLink to="/login" className="btn sm:btn-sm btn-secondary">Login</NavLink>
-                            <NavLink to="/login" className="btn sm:btn-sm btn-secondary">Register</NavLink>
+                            <NavLink to="/register" className="btn sm:btn-sm btn-secondary">Register</NavLink>
                         </>
                 }
             </div>

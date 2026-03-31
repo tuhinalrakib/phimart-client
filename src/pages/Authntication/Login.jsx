@@ -1,24 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
 import ErrorAlert from '../../components/ErrorAlert';
+import { MdOutlineRemoveRedEye } from 'react-icons/md';
+import { FaRegEyeSlash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const { loginUser, user, errorMsg } = useAuth()
-    const {register, handleSubmit, formState : {errors}} = useForm()
+    const { loginUser, errorMsg, loading, user } = useAuth()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
 
-    useEffect(()=>{
-        if(user){
-            navigate("/")
-        }
-    },[user])
+    const [showPassword, setShowPassword] = useState(false)
 
-    const onSubmit = async(data)=>{
-        await loginUser(data)
-        if(user){
-            navigate("/")
+    useEffect(() => {
+        if (user) {
+            navigate("/dashboard")
+        }
+    }, [user])
+
+    const onSubmit = async (data) => {
+        const loggedUser = await loginUser(data)
+        if (loggedUser) {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            navigate("/dashboard")
         }
     }
 
@@ -56,14 +68,30 @@ const Login = () => {
                             <label className="label" htmlFor="password">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="••••••••"
-                                className={`input input-bordered w-full ${errors.email ? "input-error" : ""
-                                    }`}
-                                {...register("password", { required: "Password is required" })}
-                            />
+                            <div className='relative'>
+                                <input
+                                    id="password"
+                                    type={`${showPassword ? "password" : "text"}`}
+                                    placeholder="••••••••"
+                                    className={`input input-bordered w-full ${errors.email ? "input-error" : ""
+                                        }`}
+                                    {...register("password", { required: "Password is required" })}
+                                />
+                                <button
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    type='button'
+                                    className='absolute top-1.5 cursor-pointer right-1'
+                                >
+                                    {
+                                        showPassword
+                                            ?
+                                            <FaRegEyeSlash size={25} />
+                                            :
+                                            <MdOutlineRemoveRedEye size={25} />
+                                    }
+
+                                </button>
+                            </div>
                             {errors.password && (
                                 <span className="label-text-alt text-error">
                                     {errors.password.message}
@@ -74,10 +102,10 @@ const Login = () => {
                         <button
                             type="submit"
                             className="btn btn-primary w-full"
-                            // disabled={loading}
+                            disabled={loading}
                         >
-                            {/* {loading ? "Logging In..." : "Login"} */}
-                            Logging
+                            {loading ? "Logging In..." : "Login"}
+                            {/* Logging */}
                         </button>
                     </form>
 

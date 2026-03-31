@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
@@ -6,29 +5,11 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import ErrorAlert from '../ErrorAlert';
-import useAxios from '../../hooks/useAxios';
-import useLoadingError from '../../hooks/useLoadingError';
+import useFetchQuery from '../../hooks/useFetchQuery';
 
 const Products = () => {
-    const [products, setProducts] = useState([])
-    const {loading, error, setLoading, setError} = useLoadingError()
-    const axiosInstance = useAxios()
-
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                setLoading(true)
-                const res = await axiosInstance.get('/products/')
-                setProducts(res.data.results)
-            } catch (err) {
-                console.log(err)
-                setError(err.message)
-            }finally{
-                setLoading(false)
-            }
-        }
-        fetch()
-    }, [axiosInstance, setLoading, setError])
+    const {data : productsData , isLoading, error} = useFetchQuery("products", '/products/')
+    const products = productsData?.results
 
     return (
         <section className='max-w-7xl mx-auto py-16 bg-gray-50'>
@@ -38,11 +19,11 @@ const Products = () => {
             </div>
             {/* Spinner */}
             {
-                loading && <div className='flex justify-center items-center my-5'><span className="loading loading-bars loading-xl"></span></div>
+                isLoading && <div className='flex justify-center items-center my-5'><span className="loading loading-bars loading-xl"></span></div>
             }
             {/* Errors Message */}
             {
-                error && <ErrorAlert message={error}/>
+                error && <ErrorAlert message={error?.message}/>
             }
             <Swiper
                 modules={[Navigation, Autoplay]}

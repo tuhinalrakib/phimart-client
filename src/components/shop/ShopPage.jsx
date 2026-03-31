@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import useLoadingError from '../../hooks/useLoadingError';
-import useAxios from '../../hooks/useAxios';
+import React, { useState } from 'react';
 import ProductList from './ProductList';
 import Pagination from './Pagination';
 import FilterSection from './FilterSection';
-import useFetchCategories from '../../hooks/useFetchCategories';
 import useFetchProducts from '../../hooks/useFetchProducts';
+import useFetchQuery from '../../hooks/useFetchQuery';
+import Loader from '../UI/Loader';
 
 const ShopPage = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -14,7 +13,7 @@ const ShopPage = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [sortOrder, setSortOrder] = useState("");
 
-    const category = useFetchCategories()
+    const {data : category, isLoading : categoryLoading} = useFetchQuery("category", '/category/')
 
     const { isLoading, products, totalPages } = useFetchProducts({ currentPage, priceRange, selectedCategory, searchQuery, sortOrder })
 
@@ -27,6 +26,7 @@ const ShopPage = () => {
         setCurrentPage(1);
     };
 
+    if(isLoading || categoryLoading) return <Loader />
 
     return (
         <div className='max-w-7xl mx-auto py-16'>
@@ -44,10 +44,7 @@ const ShopPage = () => {
                 searchQuery={searchQuery}
                 sortOrder={sortOrder}
             />
-            {/* Spinner */}
-            {
-                isLoading && <div className='flex justify-center items-center my-14 h-60'><span className="loading loading-bars loading-xl"></span></div>
-            }
+          
             {/* Errors Message */}
 
             <ProductList products={products} />

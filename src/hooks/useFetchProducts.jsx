@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import useAxios from './useAxios';
 import { useQuery } from '@tanstack/react-query';
 
