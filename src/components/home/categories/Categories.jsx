@@ -1,6 +1,7 @@
-import CategoryItems from './CategoryItems';
-import ErrorAlert from '../ErrorAlert';
-import useFetchQuery from '../../hooks/useFetchQuery';
+import useFetchQuery from "../../../hooks/useFetchQuery";
+import ErrorAlert from "../../ErrorAlert";
+import CategoryItems from "./CategoryItems";
+
 
 const Categories = () => {
     const {data : category, isLoading, error} = useFetchQuery('category', "/category/")

@@ -1,5 +1,5 @@
 
-import BgImage from '../../assets/images/banner-image-bg.jpg'
+import BgImage from '../../../assets/images/banner-image-bg.jpg'
 
 const Carousel = ({title,subtitle,image}) => {
     return (

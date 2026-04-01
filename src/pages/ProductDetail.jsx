@@ -13,7 +13,7 @@ const ProductDetail = () => {
 
     if (isLoading) return <Loader />;
     if (!product) return <div>Product Not Found...</div>;
-// console.log(product)
+
     return (
         <div className="w-3/4 mx-auto px-4 py-8">
             <div className="mb-6">

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { FaCheck, FaShoppingCart } from "react-icons/fa";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-// import useCartContext from "../../hooks/useCartContext";
+import useCartContext from "../../hooks/useCartContext";
 
 const AddToCartButton = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const { addToCartItems } = useCartContext()
 
 
   const decreaseQuantity = () => {
@@ -24,7 +25,7 @@ const AddToCartButton = ({ product }) => {
   const addToCart = async () => {
     setIsAdding(true);
     try {
-      // await AddCartItems(product.id, quantity);
+      await addToCartItems(product.id, quantity);
       setIsAdded(true);
       setIsAdding(false);
     } catch (error) {

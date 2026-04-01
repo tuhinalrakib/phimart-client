@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import BannerImage from '../../assets/images/banner-image3.png'
-import BGImage from "../../assets/images/banner-image-bg-1.jpg"
+import BannerImage from '../../../assets/images/banner-image3.png'
+import BGImage from "../../../assets/images/banner-image-bg-1.jpg"
 
 const Discount = () => {
     const targetDate = new Date().getTime() + 1000 * 24 * 60 * 60 * 25

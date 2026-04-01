@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Book from "../../assets/images/banner-image2.png"
-import MatBook from "../../assets/images/banner-image1.png"
-import HeartBook from "../../assets/images/banner-image.png"
+import Book from "../../../assets/images/banner-image2.png"
+import MatBook from "../../../assets/images/banner-image1.png"
+import HeartBook from "../../../assets/images/banner-image.png"
 
 // Import Swiper styles
 import 'swiper/css';
