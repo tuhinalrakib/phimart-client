@@ -1,38 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
 import ErrorAlert from '../../components/ErrorAlert';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import Loader from '../../components/UI/Loader';
+import useAuthContext from '../../hooks/useAuthContext';
 
 const Login = () => {
-    const { loginUser, errorMsg, loading, user } = useAuth()
+    const { loginUser, errorMsg, loading, user } = useAuthContext()
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false)
 
-    useEffect(() => {
-        if (user) {
-            navigate("/dashboard")
-        }
-    }, [user])
+    useEffect(()=>{
+        if(user) navigate("/dashboard")
+    },[user])
 
     const onSubmit = async (data) => {
-        const loggedUser = await loginUser(data)
-        if (loggedUser) {
+        const res = await loginUser(data)
+        
+        if (res.success) {
             Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Your work has been saved",
+                title: "Login Successful",
                 showConfirmButton: false,
                 timer: 1500
-            });
+            })
             navigate("/dashboard")
+
         }
     }
+
+    if(loading) return <Loader />
 
     return (
         <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-base-200">
@@ -71,7 +75,7 @@ const Login = () => {
                             <div className='relative'>
                                 <input
                                     id="password"
-                                    type={`${showPassword ? "password" : "text"}`}
+                                    type={showPassword ? "password" : "text"}
                                     placeholder="••••••••"
                                     className={`input input-bordered w-full ${errors.email ? "input-error" : ""
                                         }`}
@@ -102,7 +106,7 @@ const Login = () => {
                         <button
                             type="submit"
                             className="btn btn-primary w-full"
-                            disabled={loading}
+                            disabled={loading || user}
                         >
                             {loading ? "Logging In..." : "Login"}
                             {/* Logging */}

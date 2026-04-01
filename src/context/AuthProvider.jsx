@@ -4,10 +4,6 @@ import useAuth from '../hooks/useAuth';
 const AuthProvider = ({ children }) => {
     const allAuthContext = useAuth()
 
-    // const authData = {
-    //     allAuthContext
-    // }
-
     return (
         <AuthContext value={allAuthContext}>
             {children}

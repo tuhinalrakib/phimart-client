@@ -5,7 +5,7 @@ import useAuthContext from '../../hooks/useAuthContext';
 
 const Navbar = () => {
     const { user, loading, logoutUser } = useAuthContext()
-
+console.log(user)
     const Links = (
         <>
             <li>

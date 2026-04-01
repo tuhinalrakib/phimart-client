@@ -22,6 +22,7 @@ const Cart = () => {
   useEffect(() => {
     setLocalCart(cart);
   }, [cart]);
+console.log(localCart)
 
   if (loading) return <p>Loading...</p>;
   if (!localCart) return <p>No Cart Found</p>;
@@ -95,7 +96,7 @@ const Cart = () => {
         </div>
         <div>
           <CartSummary
-            totalPrice={localCart.total_price}
+            totalPrice={localCart.total_amount}
             itemCount={localCart.items.length}
             cartId={cartId}
           />
